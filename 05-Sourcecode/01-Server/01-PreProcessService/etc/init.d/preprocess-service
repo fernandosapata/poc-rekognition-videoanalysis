@@ -20,6 +20,19 @@ LOGFILE=/var/log/preprocess-service.log
 
 set -e
 
+# Functions section
+start_service()
+{
+    PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
+    if [ -z $PID ]; then
+        printf "%s\n" "[Fail]"
+    else
+        echo $PID > $PIDFILE
+        printf "%s\n" "[Ok]"
+    fi
+}
+
+
 case "$1" in
   start)
     printf "%-50s" "Starting $NAME..."
@@ -32,18 +45,12 @@ case "$1" in
             if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
                 printf "%s, %s, " "Process dead but pidfile exists" "Removing pidfile"
                 rm -f $PIDFILE
+                start_service
             else
                 printf "%s\n" "Service is already running"
-                exit 0
             fi
-        fi
-
-        PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
-        if [ -z $PID ]; then
-            printf "%s\n" "[Fail]"
         else
-            echo $PID > $PIDFILE
-            printf "%s\n" "[Ok]"
+            start_service
         fi
 
     else
