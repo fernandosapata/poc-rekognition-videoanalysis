@@ -35,16 +35,18 @@ case "$1" in
                 rm -f $PIDFILE
             else
                 printf "%s\n" "Service is already running"
-            fi
-        else
-            PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
-            if [ -z $PID ]; then
-                printf "%s\n" "[Fail]"
-            else
-                echo $PID > $PIDFILE
-                printf "%s\n" "[Ok]"
+                exit 0
             fi
         fi
+
+        PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
+        if [ -z $PID ]; then
+            printf "%s\n" "[Fail]"
+        else
+            echo $PID > $PIDFILE
+            printf "%s\n" "[Ok]"
+        fi
+
     else
         printf "%s\t%s\n" "[Fail]" "Reason: python must be >= 2.7"
     fi
