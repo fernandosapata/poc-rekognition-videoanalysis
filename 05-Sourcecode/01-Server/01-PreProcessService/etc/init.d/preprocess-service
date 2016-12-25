@@ -30,11 +30,11 @@ case "$1" in
             # Check if process has crashed last time, so we can remove the PIDFILE (respawn)
             PID=`cat $PIDFILE`
             if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-                printf "%s " "Process dead but pidfile exists"
+                printf "%s, " "Process dead but pidfile exists"
                 echo "Removing pidfile"
                 rm -f $PIDFILE
             else
-                printf "%s " "Service is already running"
+                printf "%s\n" "Service is already running"
                 exit 0
             fi
         fi
