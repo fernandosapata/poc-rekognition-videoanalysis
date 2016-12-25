@@ -1,5 +1,10 @@
 #/bin/bash -xe
 
+if [$(whoami) != "root"] ; then
+    echo "You must be root to execute this script file"
+    exit 1
+fi
+
 # Install required dependencies
 yum update -y
 yum install -y jq git
