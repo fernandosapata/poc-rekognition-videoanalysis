@@ -1,6 +1,6 @@
 #/bin/bash -xe
 
-cd /home/ec2-user/downloads/tmp
+cd /opt/poc-rekognition-videoanalysis/tmp
 rm -Rf videos/* images/*
 
 # Parameter section
