@@ -1,0 +1,77 @@
+#!/bin/sh
+# chkconfig: 345 99 01
+# description: Pre Process Service
+
+### BEGIN INIT INFO
+# Provides:          Pre Process Service
+# Required-Start:    $local_fs $network $named $time $syslog
+# Required-Stop:     $local_fs $network $named $time $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Pre Process Service
+### END INIT INFO
+
+SCRIPT=/opt/poc-rekognition-videoanalysis/preprocess-service.sh
+NAME=preprocess-service
+DESC="Pre Process Service"
+PYTHON_BIN=/usr/bin/python
+PIDFILE=/var/run/preprocess-service.pid
+LOGFILE=/var/log/preprocess-service.log
+
+set -e
+
+case "$1" in
+  start)
+    printf "%-50s" "Starting $NAME..."
+
+    PYTHON_VERSION=$($PYTHON_BIN --version 2>&1 | grep -o '[0-9]\.[0-9]')
+    if [ $(expr $PYTHON_VERSION '>=' 2.7) -eq 1 ]; then
+        PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
+        if [ -z $PID ]; then
+            printf "%s\n" "[Fail]"
+        else
+            echo $PID > $PIDFILE
+            printf "%s\n" "[Ok]"
+        fi
+    else
+        printf "%s\t%s\n" "[Fail]" "Reason: python must be >= 2.7"
+    fi
+  ;;
+  status)
+    printf "%-50s" "Checking $NAME..."
+    if [ -f $PIDFILE ]; then
+         PID=`cat $PIDFILE`
+         if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            printf "%s\n" "Process dead but pidfile exists"
+	    echo "Removing pidfile"
+	    rm -f $PIDFILE
+         else
+            echo "Running"
+         fi
+    else
+         printf "%s\n" "Service not running"
+    fi
+  ;;
+  stop)
+        printf "%-50s" "Stopping $NAME"
+            PID=`cat $PIDFILE`
+            cd $DAEMON_PATH
+        if [ -f $PIDFILE ]; then
+            kill -HUP $PID
+            printf "%s\n" "[Ok]"
+            rm -f $PIDFILE
+        else
+            printf "%s\n" "pidfile not found"
+        fi
+  ;;
+  restart|force-reload)
+    ${0} stop
+    ${0} start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
