@@ -26,12 +26,24 @@ case "$1" in
 
     PYTHON_VERSION=$($PYTHON_BIN --version 2>&1 | grep -o '[0-9]\.[0-9]')
     if [ $(expr $PYTHON_VERSION '>=' 2.7) -eq 1 ]; then
-        PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
-        if [ -z $PID ]; then
-            printf "%s\n" "[Fail]"
+        if [ -f $PIDFILE ]; then
+            # Check if process has crashed last time, so we can remove the PIDFILE (respawn)
+            PID=`cat $PIDFILE`
+            if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+                printf "%s\n" "Process dead but pidfile exists"
+                echo "Removing pidfile"
+                rm -f $PIDFILE
+            else
+                printf "%s\n" "Service is already running"
+            fi
         else
-            echo $PID > $PIDFILE
-            printf "%s\n" "[Ok]"
+            PID=`$SCRIPT >> $LOGFILE 2>&1 & echo $!`
+            if [ -z $PID ]; then
+                printf "%s\n" "[Fail]"
+            else
+                echo $PID > $PIDFILE
+                printf "%s\n" "[Ok]"
+            fi
         fi
     else
         printf "%s\t%s\n" "[Fail]" "Reason: python must be >= 2.7"
@@ -43,8 +55,8 @@ case "$1" in
          PID=`cat $PIDFILE`
          if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
             printf "%s\n" "Process dead but pidfile exists"
-	    echo "Removing pidfile"
-	    rm -f $PIDFILE
+	        echo "Removing pidfile"
+	        rm -f $PIDFILE
          else
             echo "Running"
          fi
