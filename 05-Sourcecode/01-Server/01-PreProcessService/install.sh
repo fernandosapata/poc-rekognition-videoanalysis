@@ -12,7 +12,7 @@ yum install -y jq git
 # Download project
 cd /tmp
 rm -rf poc-rekognition-videoanalysis
-git clone https://github.com/PauloMigAlmeida/poc-rekognition-videoanalysis.git
+git clone --depth=1 https://github.com/PauloMigAlmeida/poc-rekognition-videoanalysis.git
 
 # install and configure ffmpeg
 tar -xJf poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/dependencies/ffmpeg-git-64bit-static.tar.xz -C /opt/
