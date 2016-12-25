@@ -30,6 +30,6 @@ do
 		aws sqs delete-message --queue-url $QUEUE_URL --receipt-handle $RECEIPT_HANDLE --region $EC2_REGION
 		rm -Rf videos/* images/*
 	else
-		echo "No messages so far"
+		echo "[$(date +%Y-%m-%d:%H:%M:%S)] - No messages so far"
   	fi	
 done	
