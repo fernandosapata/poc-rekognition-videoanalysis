@@ -1,5 +1,5 @@
 #!/bin/sh
-# chkconfig: 345 99 01
+# chkconfig: 2345 99 01
 # description: Pre Process Service
 
 ### BEGIN INIT INFO
