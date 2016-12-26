@@ -1,0 +1,2 @@
+- Configure OS to respawn preprocess-service if it quits unexpectedly
+- Come up with a cron script to compress old log files
