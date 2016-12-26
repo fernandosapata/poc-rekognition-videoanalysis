@@ -1,2 +1,3 @@
-github-base-repository
+poc-rekognition-videoanalysis
 ======================
+
