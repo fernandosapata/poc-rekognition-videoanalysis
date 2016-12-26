@@ -64,15 +64,11 @@ function registerIoTThing(){
 		Payload: JSON.stringify({identityId: AWS.config.credentials.identityId})
 	};
 
-	// create variable to hold data returned by the Lambda function
-	var pullResults;
-
 	Lambda.invoke(pullParams, function(error, data) {
 	  	if (error) {
 		    console.log(error);
 		} else {
-			pullResults = JSON.parse(data.Payload);
-		    console.log(pullResults);
+		    console.log(JSON.parse(data.Payload));
 		    connectToIoT();
 		}
 	}); 
@@ -106,8 +102,6 @@ function connectToIoT(){
 //
 window.mqttClientConnectHandler = function() {
    console.log('connect');
-   messageHistory = '';
-
    //
    // Subscribe to our current topic.
    //
