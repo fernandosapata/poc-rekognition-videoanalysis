@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rekognition Video Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./favicon.ico">
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-app="rekognition">
+    <header></header>
+    <main class="container" ng-controller="upload">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <input class="btn" type="file" name="file"/>
+          </span>
+        </div>
+        <button type="button" class="btn btn-default btn-lg" ng-click="uploadFile()">
+            <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload
+        </button>
+    </main>
+    <footer></footer>
+<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./app/controllers/maincontroller.js"></script>
+</body>
+</html>
+
+
