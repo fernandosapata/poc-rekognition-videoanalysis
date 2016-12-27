@@ -39,28 +39,4 @@ app.controller('rekognition', ['$scope', function($scope) {
     		}
     	);
     };
-
-
-//    carousel
-    $scope.contents = [
-        {'h1': 'Party',
-        'p': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius odio a rhoncus cursus. Mauris gravida lorem diam!',
-        'img': './app/img/party2.jpg'
-        },
-        {'h1': 'Friends',
-        'p': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius odio a rhoncus cursus. Mauris gravida lorem diam!',
-        'img': './app/img/friends.jpg'
-        },
-        {'h1': 'Marriage',
-        'p': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius odio a rhoncus cursus. Mauris gravida lorem diam!',
-        'img': 'https://cdn.colorlib.com/activello/wp-content/uploads/sites/10/2012/03/photo-1437915015400-137312b61975-1920x550.jpg'
-        },
-      ];
-    $scope.currentIndex = 0;
-    $scope.setCurrentSlideIndex = function (index) {
-        $scope.currentIndex = index;
-    };
-    $scope.isCurrentSlideIndex = function (index) {
-        return $scope.currentIndex === index;
-    };
 }]);

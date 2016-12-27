@@ -25,12 +25,17 @@
     <main ng-controller="rekognition">
         <div class="sliderHome">
             <div ng-hide="loadingStart">
-                <div class="slide" ng-repeat="content in contents" ng-hide="!isCurrentSlideIndex($index)">
-                    <img width="100%" height="100%" ng-src="{{content.img}}">
-                    <div class="boxInfo container boxText">
-                        <h1>{{content.h1}}</h1>
-                        <p>{{content.p}}</p>
-                    </div>
+                <div class="boxInfo container boxText">
+                    <h1>Rekognition Video Analysis</h1>
+                    <h3>Lorem ipsum jassui cam jeowjeo<br />
+                        Lorem ipsum jassui cam jeowjeo</h3>
+                </div>
+                 <!--particles.js container -->
+                <div id="particles-js"></div>
+
+                <!-- stats - count particles -->
+                <div class="count-particles">
+                    <span class="js-count-particles">--</span> particles
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 co-xs-2 boxInfo boxUpload">
                     <div class="input-group">
@@ -42,10 +47,6 @@
                         <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload
                     </button>
                 </div>
-                <li class="dot" ng-repeat="content in contents">
-                    <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
-                       ng-click="setCurrentSlideIndex($index);"><img ng-src="{{content.icon}}"/></a>
-                </li>
             </div>
             <div class="progress" ng-hide="!loadingStart">
                 <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
@@ -60,7 +61,9 @@
     <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./bower_components/particles.js/particles.min.js"></script>
     <script type="text/javascript" src="./app/controllers/maincontroller.js"></script>
+    <script type="text/javascript" src="./app/js/animation.js"></script>
 </body>
 </html>
 
