@@ -1,6 +1,9 @@
+body {
+  margin: 0;
+  font-family: HelveticaNeueBold,Helvetica,Helvetica,Arial,sans-serif;
+}
 .navbar.navbar-default {
   background-color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
   margin-bottom: 0;
   font-weight: 400;
   min-height: auto;
@@ -10,37 +13,37 @@
 .btn-default {
   margin: 1em 0;
 }
-.font {
-  color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
-  margin-top: 10px;
-  letter-spacing: 1px;
-}
 .boxInfo{
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1;
-  padding: 0 30px;
   display: inline-block;
-  margin: auto;
+  margin: 0 auto;
   text-align: center;
   color: #ffffff;
+  top: 115px;
+  height: 386px;
 }
-.boxText {
-  top: 15%;
+.input-group {
+    margin: 3em auto 1em auto;
 }
-.boxUpload {
-  top: 30%;
+.wrap-tutorial {
+ padding: 90px 0;
 }
-
+#uploadFile:hover{
+    color:#eeeeee;
+}
+@media only screen and (max-width: 720px) {
+    #boxInfo{padding:0; margin: 0}
+}
+@media only screen and (min-width: 721px) and (max-width: 1280px) {
+    #boxInfo{padding:0; margin: 0}
+}
+@media only screen and (min-width: 1281px) {
+}
 /* ---- reset ---- */
-
-body {
-  margin: 0;
-  font:normal 75% Arial, Helvetica, sans-serif;
-}
 
 canvas {
   display: block;
@@ -50,7 +53,7 @@ canvas {
 /* ---- particles.js container ---- */
 
 #particles-js {
-  position: absolute;
+  position: relative    ;
   width: 100%;
   height: 450px;
   background-color: #183a5f;
@@ -64,7 +67,7 @@ canvas {
 
 .count-particles{
   background: #000022;
-  position: absolute;
+  position: relative;
   top: 48px;
   left: 0;
   width: 80px;

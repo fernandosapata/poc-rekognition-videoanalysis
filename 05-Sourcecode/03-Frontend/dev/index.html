@@ -23,40 +23,51 @@
         </nav>
     </header>
     <main ng-controller="rekognition">
-        <div class="sliderHome">
-            <div ng-hide="loadingStart">
-                <div class="boxInfo container boxText">
-                    <h1>Rekognition Video Analysis</h1>
-                    <h3>Lorem ipsum jassui cam jeowjeo<br />
-                        Lorem ipsum jassui cam jeowjeo</h3>
-                </div>
-                 <!--particles.js container -->
-                <div id="particles-js"></div>
-
-                <!-- stats - count particles -->
-                <div class="count-particles">
-                    <span class="js-count-particles">--</span> particles
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 co-xs-2 boxInfo boxUpload">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <input class="btn" type="file" name="file" id="uploadFile" />
-                        </span>
-                    </div>
-                    <button type="button" class="btn btn-default btn-lg" ng-click="uploadFile()">
-                        <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload
-                    </button>
-                </div>
+        <div ng-hide="loadingStart">
+            <!--particles.js container -->
+            <div id="particles-js"></div>
+            <!-- stats - count particles -->
+            <div class="count-particles">
+                <span class="js-count-particles">--</span> particles
             </div>
-            <div class="progress" ng-hide="!loadingStart">
-                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
-                     aria-valuenow="{{loading}}" aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
-                    {{loading}}% Complete
+            <div class="boxInfo container" id="boxInfo">
+                <h1>Rekognition Video Analysis</h1>
+                <h3>Lorem ipsum jassui cam jeowjeo<br />
+                    Lorem ipsum jassui cam jeowjeo</h3>
+                <div class="input-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <span class="input-group-btn">
+                        <input class="btn" type="file" name="file" id="uploadFile" />
+                    </span>
                 </div>
+                <button type="button" class="btn btn-default btn-lg" ng-click="uploadFile()">
+                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload
+                </button>
+            </div>
+        </div>
+        <div class="progress" ng-hide="!loadingStart">
+            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
+                 aria-valuenow="{{loading}}" aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
+                {{loading}}% Complete
+            </div>
+        </div>
+        <div class="container wrap-tutorial">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                <img src="app/img/video.png" alt="video " class="img-circle">
+                <h4>First, choose a video.</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                <img src="app/img/upload.png" alt="video " class="img-circle">
+                <h4>Second, upload your video.</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                <img src="app/img/wait.png" alt="video " class="img-circle">
+                <h4>And wait some seconds</h4>
             </div>
         </div>
     </main>
-    <footer></footer>
+    <footer>
+       Copyright © 2016, All rights reserved.
+    </footer>
     <script type="text/javascript" src="./bower_components/aws-sdk/dist/aws-sdk.js"></script>
     <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
