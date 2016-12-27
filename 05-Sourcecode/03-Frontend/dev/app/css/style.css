@@ -1,0 +1,36 @@
+.navbar.navbar-default {
+  background-color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 0;
+  font-weight: 400;
+  min-height: auto;
+  padding: 0;
+  box-shadow: 0 0 2px #e3e3e3;
+}
+.btn-default {
+  margin: 1em 0;
+}
+.font {
+  color: #ffed28;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+.boxInfo{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 0 30px;
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  color: #ffed28;
+}
+.boxText {
+  top: 35%;
+}
+.boxUpload {
+  top: 55%;
+}
