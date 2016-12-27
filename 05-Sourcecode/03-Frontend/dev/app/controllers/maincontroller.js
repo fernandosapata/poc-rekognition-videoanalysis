@@ -1,42 +1,41 @@
-AWS.config.update({
-  region: 'us-west-2',
-  credentials: new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-west-2:702dd19c-6b9e-4022-838c-136776efcc64'
-  })
-});
 
-var s3 = new AWS.S3({
-  apiVersion: '2006-03-01',
-  params: {Bucket: "poc-rekognition-video"}
-});
+var AWSIoTData = require('aws-iot-device-sdk');
+var AWS = require('aws-sdk');
 
-// Angular
-var app = angular.module('rekognition',[]);
-
-app.controller('rekognition', ['$scope', function($scope) {
+app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($scope, AWSIotWebsocket, AWSS3) {
 
     $scope.uploadFile = function(){
-    	var files = document.getElementById('uploadFile').files;
-    	if(!files.length) return alert('Please choose a file to upload first.');
 
-    	var file = files[0];
-      	$scope.loadingStart = true;
-      	$scope.loading = 0;
-      	var fileName = file.name;
-        $scope.loading = 30;
-      	s3.upload({
-    	    Key: 'test/' + fileName,
-    	    Body: file,
-    	    ACL: 'public-read'
-    	  }, function(err, data) {
-    		    if (err) {
-    		      return alert('There was an error uploading your file: ', err.message);
-    		    }
-    		    else{
-    		    alert('Successfully uploaded file.');
-    		    $scope.loading = 100;
-    		    }
-    		}
-    	);
+        //Usage of AWSS3
+        AWSS3.init();
+        AWSS3.uploadFile(
+            document.getElementById('uploadFile'),
+            "test/",
+            function(err, data) {
+                if (err) {
+                  return alert('There was an error uploading your file: ', err.message);
+                }
+                alert('Successfully uploaded file.');
+            }
+        );
+
+
+        //Usage of AWSIotWebsocket
+        AWSIotWebsocket.init(
+            function() {
+               console.log('connect');
+               //
+               // Subscribe to our current topic.
+               //
+               AWSIotWebsocket.subscribeToPrivateTopic();
+            },
+            function() {
+               console.log('reconnect');
+            },
+            function(topic, payload) {
+               console.log('message: ' + topic + ':' + payload.toString());
+            }
+        );
+        AWSIotWebsocket.setupWebSocket();
     };
 }]);
