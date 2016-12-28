@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Rekognition Video Analysis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="./favicon.ico">
-    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./app/css/style.css" rel="stylesheet">
+    <link rel="icon" href="app/img/favicon.ico">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/css/style.css" rel="stylesheet">
 </head>
 <body ng-app="rekognition">
     <header>
@@ -16,21 +16,21 @@
             <div class="container-fluid container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
-                        <img alt="Brand" src="...">
+                        <img alt="Brand" src="app/img/brand.png">
                     </a>
                 </div>
             </div>
         </nav>
     </header>
     <main ng-controller="rekognition">
-        <div ng-hide="loadingStart">
+        <div>
             <!--particles.js container -->
             <div id="particles-js"></div>
             <!-- stats - count particles -->
             <div class="count-particles">
                 <span class="js-count-particles">--</span> particles
             </div>
-            <div class="boxInfo container" id="boxInfo">
+            <div class="boxInfo container" id="boxInfo" ng-hide="loadingStart">
                 <h1>Rekognition Video Analysis</h1>
                 <h3>Lorem ipsum jassui cam jeowjeo<br />
                     Lorem ipsum jassui cam jeowjeo</h3>
@@ -45,23 +45,23 @@
             </div>
         </div>
         <div class="progress" ng-hide="!loadingStart">
-            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
-                 aria-valuenow="{{loading}}" aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
-                {{loading}}% Complete
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{loading}}"
+                 aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
+                <b>{{loading}}%</b> {{message}}
             </div>
         </div>
         <div class="container wrap-tutorial">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                <img src="app/img/video.png" alt="video " class="img-circle">
-                <h4>First, choose a video.</h4>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
                 <img src="app/img/upload.png" alt="video " class="img-circle">
-                <h4>Second, upload your video.</h4>
+                <h4>First, upload your video.</h4>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
                 <img src="app/img/wait.png" alt="video " class="img-circle">
-                <h4>And wait some seconds</h4>
+                <h4>Second, wait some seconds.</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-offset-1 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                <img src="app/img/graphic.png" alt="video ">
+                <h4>And see the results.</h4>
             </div>
         </div>
     </main>

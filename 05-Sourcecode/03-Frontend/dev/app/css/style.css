@@ -1,45 +1,58 @@
 body {
-  margin: 0;
-  font-family: HelveticaNeueBold,Helvetica,Helvetica,Arial,sans-serif;
+    margin: 0;
+    font-family: HelveticaNeueBold,Helvetica,Helvetica,Arial,sans-serif;
 }
 .navbar.navbar-default {
-  background-color: #ffffff;
-  margin-bottom: 0;
-  font-weight: 400;
-  min-height: auto;
-  padding: 0;
-  box-shadow: 0 0 2px #e3e3e3;
+    background-color: #ffffff;
+    margin-bottom: 0;
+    font-weight: 400;
+    min-height: auto;
+    padding: 0;
+    box-shadow: 0 0 2px #e3e3e3;
+}
+.navbar-brand>img{
+    width: 22px;
 }
 .btn-default {
-  margin: 1em 0;
+    margin: 1em 0;
 }
 .boxInfo{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  display: inline-block;
-  margin: 0 auto;
-  text-align: center;
-  color: #ffffff;
-  top: 115px;
-  height: 386px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+    top: 115px;
+    height: 386px;
 }
 .input-group {
     margin: 3em auto 1em auto;
 }
 .wrap-tutorial {
- padding: 140px 0;
+    padding: 140px 0;
 }
 #uploadFile:hover{
     color:#eeeeee;
+}
+.progress{
+    position: absolute;
+    width: 100%;
+    top: 261px;
+    height: 29px;
+}
+.progress-bar{
+    background-color: #000000;
+    font-size: 1em;
+    line-height: 28px;
 }
 @media only screen and (max-width: 720px) {
     #boxInfo{padding:0; margin: 0}
 }
 @media only screen and (min-width: 721px) and (max-width: 1280px) {
-    #boxInfo{padding:0; margin: 0}
 }
 @media only screen and (min-width: 1281px) {
 }

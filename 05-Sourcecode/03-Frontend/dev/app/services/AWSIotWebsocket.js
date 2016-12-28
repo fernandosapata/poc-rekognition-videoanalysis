@@ -69,7 +69,7 @@ app.service('AWSIotWebsocket', function() {
             host: AWSConfiguration.host,
             port: AWSConfiguration.port,
             maximumReconnectTimeMs: 2000,
-            debug: true,
+            debug: false,
             accessKeyId: AWSConfiguration.credentialsAccessKeyId,
             secretKey: AWSConfiguration.credentialsSecretKey,
             sessionToken: AWSConfiguration.credentialsSessionToken
