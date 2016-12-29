@@ -1,0 +1,19 @@
+{
+  "Id": "Policy1483048860345",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1483048858340",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:PutObjectVersionAcl"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::<bucket_name>/certificates/*",
+      "Principal": "*"
+    }
+  ]
+}
