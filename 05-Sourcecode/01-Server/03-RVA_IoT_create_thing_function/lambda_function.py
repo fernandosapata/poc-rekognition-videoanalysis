@@ -1,4 +1,5 @@
 import boto3
+import os
 
 client = boto3.client('iot')
 
@@ -19,7 +20,7 @@ def lambda_handler(event, context):
 
     response = client.attach_thing_principal(
         thingName=identity_id,
-        principal='arn:aws:iot:us-west-2:603806363984:cert/ccc8208ca5963c3fadbe86d58805b084cd3e6f64ae9c95894fe9ba97e8dbb832'
+        principal=os.environ['principal']
     )
 
     return 'OK'
