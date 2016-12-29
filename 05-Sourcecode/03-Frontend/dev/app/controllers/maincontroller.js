@@ -5,7 +5,6 @@ var AWS = require('aws-sdk');
 app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($scope, AWSIotWebsocket, AWSS3) {
 
     $scope.uploadFile = function(){
-        $scope.loadingStart = true;
         //Usage of AWSS3
         AWSS3.init();
         AWSS3.uploadFile(
@@ -16,6 +15,7 @@ app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($s
                   return alert('There was an error uploading your file: ', err.message);
                 }
 //                alert('Successfully uploaded file.');
+                $scope.loadingStart = true;
                 $scope.loading =  20;
                 $scope.message = "Successfully uploaded video";
                 $scope.$apply();
