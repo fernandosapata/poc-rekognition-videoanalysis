@@ -1,0 +1,18 @@
+{
+  "name": "dev",
+  "homepage": "https://github.com/PauloMigAlmeida/poc-rekognition-videoanalysis",
+  "authors": [
+    "Paulo Miguel Almeida <mpaulo@amazon.com>",
+    "Tatiana Almeida Morimoto <tmmorimoto@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.1",
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7",
+    "particles.js": "^2.0.0"
+  }
+}

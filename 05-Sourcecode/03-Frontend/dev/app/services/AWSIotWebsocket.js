@@ -33,30 +33,9 @@ app.service('AWSIotWebsocket', function() {
                 AWSConfiguration.credentialsAccessKeyId = data.Credentials.AccessKeyId;
                 AWSConfiguration.credentialsSecretKey = data.Credentials.SecretKey;
                 AWSConfiguration.credentialsSessionToken = data.Credentials.SessionToken;
-                self.registerIoTThing();
+                self.connectToIoT();
             } else {
                 console.log('error retrieving credentials: ' + err);
-            }
-        });
-    };
-
-    // Call a lambda function to create a thing and attach the required certificate
-    this.registerIoTThing = function() {
-        var pullParams = {
-            FunctionName: 'RVA_IoT_create_thing_function',
-            InvocationType: 'RequestResponse',
-            LogType: 'None',
-            Payload: JSON.stringify({
-                identityId: AWS.config.credentials.identityId
-            })
-        };
-
-        self.lambda.invoke(pullParams, function(error, data) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(JSON.parse(data.Payload));
-                self.connectToIoT();
             }
         });
     };
@@ -84,8 +63,10 @@ app.service('AWSIotWebsocket', function() {
     };
 
     this.subscribeToPrivateTopic = function(){
-        self.mqttClient.subscribe("private-topic/" + AWS.config.credentials.identityId);
-        console.log("private-topic/" + AWS.config.credentials.identityId);
+        var topicName = "private-topic/" + AWS.config.credentials.identityId;
+        AWSConfiguration.privateTopic = topicName;
+        self.mqttClient.subscribe(topicName);
+        console.log(topicName);
     };
 
     this.setupWebSocket = function(x) {
