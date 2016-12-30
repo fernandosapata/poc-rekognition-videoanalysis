@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Id": "RVA-VIDEO-PROCESS-IN/SQSDefaultPolicy",
+  "Statement": [
+    {
+      "Sid": "Sid1483135050699",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "SQS:SendMessage",
+      "Resource": "arn:aws:sqs:*:*:RVA-VIDEO-PROCESS-IN",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "arn:aws:sns:*:*:RVA_ENQUEUE_FILE_TOPIC"
+        }
+      }
+    }
+  ]
+}

@@ -38,7 +38,6 @@ app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($s
             function(err, data) {
                 if (err) {
                     $scope.loadingStart = false;
-//                    $scope.$apply();
                     return alert(err.message);
                 }
             }
