@@ -18,7 +18,10 @@ app.service('AWSS3', function() {
 
         self.s3.upload({
             Key: prefix + fileName,
-            Body: file
+            Body: file,
+            Metadata: {
+                "x-amz-meta-topic": AWSConfiguration.privateTopic
+            }
           }, callback);
     };
 

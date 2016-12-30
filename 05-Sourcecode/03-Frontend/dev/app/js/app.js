@@ -12,6 +12,8 @@ var AWSConfiguration = {
    protocol: 'wss',
    host: 'a38hzh4n6y7p5j.iot.us-west-2.amazonaws.com',
    port: 443,
+   // WebSocket communication
+   privateTopic: ''
 };
 
 // Authentication

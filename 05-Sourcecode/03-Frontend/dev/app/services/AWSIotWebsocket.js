@@ -63,8 +63,10 @@ app.service('AWSIotWebsocket', function() {
     };
 
     this.subscribeToPrivateTopic = function(){
-        self.mqttClient.subscribe("private-topic/" + AWS.config.credentials.identityId);
-        console.log("private-topic/" + AWS.config.credentials.identityId);
+        var topicName = "private-topic/" + AWS.config.credentials.identityId;
+        AWSConfiguration.privateTopic = topicName;
+        self.mqttClient.subscribe(topicName);
+        console.log(topicName);
     };
 
     this.setupWebSocket = function(x) {

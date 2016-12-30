@@ -35,14 +35,14 @@ app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($s
                console.log('reconnect');
             },
             function(topic, payload) {
-                console.log('message: ' + topic + ':' + payload.toString());
-                var data = {status: []},
-                string = payload.toString(),
-                json = JSON.parse(string),
-                push = data.status.push(json);
-                $scope.message = data.status[0].message;
-                $scope.loading = data.status[0].percentage;
-                $scope.$apply();
+                payload_string = payload.toString();
+                console.log('message: ' + topic + ':' + payload_string);
+//                json = JSON.parse(payload_string);
+//                if(json.type == 'status'){
+//                    $scope.message = json.payload.message;
+//                    $scope.loading = json.payload.percentage;
+//                    $scope.$apply();
+//                }
             }
         );
         AWSIotWebsocket.setupWebSocket();
