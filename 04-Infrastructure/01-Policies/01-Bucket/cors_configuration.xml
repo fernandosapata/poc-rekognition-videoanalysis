@@ -4,12 +4,14 @@
         <AllowedOrigin>http://rva.proof.ofconcept.help</AllowedOrigin>
         <AllowedMethod>GET</AllowedMethod>
         <AllowedMethod>PUT</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
         <AllowedHeader>*</AllowedHeader>
     </CORSRule>
     <CORSRule>
         <AllowedOrigin>https://rva.proof.ofconcept.help</AllowedOrigin>
         <AllowedMethod>GET</AllowedMethod>
         <AllowedMethod>PUT</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
         <AllowedHeader>*</AllowedHeader>
     </CORSRule>
 </CORSConfiguration>
