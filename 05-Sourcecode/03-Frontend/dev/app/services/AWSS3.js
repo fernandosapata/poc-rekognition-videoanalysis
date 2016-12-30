@@ -20,7 +20,7 @@ app.service('AWSS3', function() {
             Key: prefix + fileName,
             Body: file,
             Metadata: {
-                "x-amz-meta-topic": AWSConfiguration.privateTopic
+                topic: AWSConfiguration.privateTopic
             }
           }, callback);
     };
