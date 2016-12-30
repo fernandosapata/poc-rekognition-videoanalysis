@@ -21,9 +21,18 @@ ln -fs /opt/ffmpeg-git-20161225-64bit-static/ffmpeg /usr/bin/
 # configure preprocess-service
 mkdir -p /opt/poc-rekognition-videoanalysis/tmp/videos /opt/poc-rekognition-videoanalysis/tmp/images
 mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/opt/poc-rekognition-videoanalysis/preprocess-service.sh /opt/poc-rekognition-videoanalysis/
-mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/init.d/preprocess-service /etc/init.d/
+#mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/init.d/preprocess-service /etc/init.d/
 
 chmod 755 /opt/poc-rekognition-videoanalysis/preprocess-service.sh
-chmod 755 /etc/init.d/preprocess-service
+#chmod 755 /etc/init.d/preprocess-service
 
-chkconfig preprocess-service on
+#chkconfig preprocess-service on
+
+# Install and configure supervisord
+easy_install supervisor
+mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/supervisor/supervisor/supervisord.conf /etc/supervisord.conf
+mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/init.d/supervisor /etc/init.d/
+chmod 755 /etc/init.d/supervisor
+chkconfig --add supervisor
+chkconfig supervisor on
+service supervisor start

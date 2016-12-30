@@ -1,4 +1,4 @@
-#/bin/bash -xe
+#!/bin/bash -xe
 
 cd /opt/poc-rekognition-videoanalysis/tmp
 rm -Rf videos/* images/*
@@ -31,5 +31,5 @@ do
 		rm -Rf videos/* images/*
 	else
 		echo "[$(date +%Y-%m-%d:%H:%M:%S)] - No messages so far"
-  	fi	
-done	
+  	fi
+done

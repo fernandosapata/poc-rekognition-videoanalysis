@@ -43,6 +43,7 @@ app.controller('results', ['$scope', function($scope) {
             type: 'column',
             colorByPoint: true,
             data: [29, 71, 96, 39, 54, 45, 60, 90],
+//            color:['#02B5A0', '#0180B5', '#4BC4D5', '#954567', '#EA3E70', '#C72C3A', '#F37252', '#FF8201'],
             tooltip: {
                 valueSuffix: '%'
             },
