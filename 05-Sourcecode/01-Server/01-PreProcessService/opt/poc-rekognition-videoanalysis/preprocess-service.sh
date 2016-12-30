@@ -25,7 +25,7 @@ do
 
 		# Update processing status before processing
 		IOT_TOPIC=$(aws s3api head-object --bucket $BUCKET_NAME --key $OBJECT_KEY | jq -r '.Metadata.topic')
-		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload '{"topic": "$IOT_TOPIC", "type": "status", "payload": {"message": "Extracting frames from video", "percentage": 40}}' /dev/null
+		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload "{\"topic\": \"$IOT_TOPIC\", \"type\": \"status\", \"payload\": {\"message\": \"Extracting frames from video\", \"percentage\": 40}}" /dev/null
 
 		# Create the required folder structure and download video from S3
 		VIDEO_PATH=$(dirname $OBJECT_KEY)
@@ -37,7 +37,7 @@ do
 		ffmpeg -i $OBJECT_KEY -vf fps=$FFMPEG_FRAMES_PER_SECOND $IMAGE_PATH/output_%d.png
 
 		# Update processing status after processing
-		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload '{"topic": "$IOT_TOPIC", "type": "status", "payload": {"message": "Analyzing frames", "percentage": 60}}' /dev/null
+		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload "{\"topic\": \"$IOT_TOPIC\", \"type\": \"status\", \"payload\": {\"message\": \"Analyzing frames\", \"percentage\": 60}}" /dev/null
 
 		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/
 
