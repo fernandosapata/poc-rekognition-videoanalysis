@@ -5,6 +5,8 @@ var AWSConfiguration = {
    region: 'us-west-2',
    // AWS S3 related
    bucket: 'poc-rekognition-video',
+   fileUploadLimit: (1024 * 1024 * 100),
+   fileExtension: '.mp4',
    // AWS IoT related
    credentialsAccessKeyId: '',
    credentialsSecretKey: '',
@@ -23,7 +25,8 @@ AWS.config.update({
     credentials: new AWS.CognitoIdentityCredentials({
         IdentityPoolId: AWSConfiguration.poolId
     }),
-    region: AWSConfiguration.region
+    region: AWSConfiguration.region,
+    useAccelerateEndpoint: true
 });
 
 // Angular
