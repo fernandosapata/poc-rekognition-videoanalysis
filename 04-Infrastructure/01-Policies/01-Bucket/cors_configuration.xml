@@ -6,6 +6,7 @@
         <AllowedMethod>PUT</AllowedMethod>
         <AllowedMethod>POST</AllowedMethod>
         <AllowedHeader>*</AllowedHeader>
+        <ExposeHeader>ETag</ExposeHeader>
     </CORSRule>
     <CORSRule>
         <AllowedOrigin>https://rva.proof.ofconcept.help</AllowedOrigin>
@@ -13,5 +14,6 @@
         <AllowedMethod>PUT</AllowedMethod>
         <AllowedMethod>POST</AllowedMethod>
         <AllowedHeader>*</AllowedHeader>
+        <ExposeHeader>ETag</ExposeHeader>
     </CORSRule>
 </CORSConfiguration>

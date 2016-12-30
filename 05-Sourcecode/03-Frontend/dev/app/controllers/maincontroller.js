@@ -37,7 +37,9 @@ app.controller('rekognition', ['$scope', 'AWSIotWebsocket', 'AWSS3', function($s
             "tmp/",
             function(err, data) {
                 if (err) {
-                  return alert('There was an error uploading your file: ', err.message);
+                    $scope.loadingStart = false;
+//                    $scope.$apply();
+                    return alert(err.message);
                 }
             }
         );
