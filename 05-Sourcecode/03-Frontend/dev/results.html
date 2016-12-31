@@ -46,15 +46,15 @@
                 <div class="border-right col-lg-2 col-md-2 col-sm-12 col-xs-12">
                     <div ng-repeat="profile in profiles"> 
                         <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-click="btn(profile.id) ; changeClass(profile.id)"></div>
+                            <div class="inactive" ng-click="btn(profile.id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profile.url}}" alt="Profile image example"/>
                         </div>
                         <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-click="btn(profiles[getSecondIndex($index+1)].id) ; changeClass(profiles[getSecondIndex($index+1)].id)"></div>
+                            <div class="inactive" ng-click="btn(profiles[getSecondIndex($index+1)].id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+1)].url}}" alt="Profile image example"/>
                         </div>
                         <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-click="btn(profiles[getSecondIndex($index+2)].id) ; changeClass(profiles[getSecondIndex($index+2)].id)"></div>
+                            <div class="inactive" ng-click="btn(profiles[getSecondIndex($index+2)].id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+2)].url}}" alt="Profile image example"/>
                         </div>
                     </div>

@@ -113,13 +113,6 @@ app.controller('profile', ['$scope', function($scope) {
         else
           return index;
     }
-    $scope.class[0] = "inactive"; 
-    $scope.changeClass = function(index){
-        if ($scope.class[index] === "inactive")
-            $scope.class[index] = "active";
-        else
-            $scope.class[index] = "inactive";
-    };
 
     // button click
     $scope.btn = function(id){
