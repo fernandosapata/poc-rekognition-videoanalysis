@@ -112,10 +112,15 @@ app.controller('profile', ['$scope', function($scope) {
           return index - $scope.profiles.length;
         else
           return index;
-    }
+    };
 
+    $scope.activeBtn = $scope.profiles[0].id;
+    $scope.setActive = function(id) {
+        $scope.activeBtn = id
+    };
     // button click
     $scope.btn = function(id){
+
         // Bar
         Highcharts.chart('profile', {
             chart: {
