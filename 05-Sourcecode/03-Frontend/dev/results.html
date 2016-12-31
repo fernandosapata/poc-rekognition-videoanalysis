@@ -24,41 +24,48 @@
         </header>
         <main>
             <div ng-controller="results" class="container border">
-                <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div id="column"></div>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-default btn-lg" ng-click="plain()">
+                        <button type="button" class="btn btn-default btn-md" ng-click="plain()">
                             Plain
                         </button>
-                        <button type="button" class="btn btn-default btn-lg" ng-click="inverted()">
+                        <button type="button" class="btn btn-default btn-md" ng-click="inverted()">
                             Inverted
                         </button>
-                        <button type="button" class="btn btn-default btn-lg" ng-click="polar()">
+                        <button type="button" class="btn btn-default btn-md" ng-click="polar()">
                             Polar
                         </button>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div id="pie"></div>
                 </div>
             </div>
             <div ng-controller="profile" class="container border">
-                <div class="border-right col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-repeat="profile in profiles">
-                        <img align="left" class="image-profile thumbnail" src="{{profile.url}}" alt="Profile image example"/>
-                        <div class="profile-text hidden-xs">
-                            <h2>Lorem ipsum dolor</h2>
-                            <h3>Sit Amet</h3>
+                <div class="border-right col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <div ng-repeat="profile in profiles"> 
+                        <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
+                            <div ng-click="btn(profile.id) ; changeClass(profile.id)"></div>
+                            <img align="left" class="image-profile thumbnail" src="{{profile.url}}" alt="Profile image example"/>
+                        </div>
+                        <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
+                            <div ng-click="btn(profiles[getSecondIndex($index+1)].id) ; changeClass(profiles[getSecondIndex($index+1)].id)"></div>
+                            <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+1)].url}}" alt="Profile image example"/>
+                        </div>
+                        <div class="profile-container col-lg-12 col-md-12 col-sm-12 col-xs-4" ng-if="isCurrentSlideIndex($index)">
+                            <div ng-click="btn(profiles[getSecondIndex($index+2)].id) ; changeClass(profiles[getSecondIndex($index+2)].id)"></div>
+                            <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+2)].url}}" alt="Profile image example"/>
                         </div>
                     </div>
-                    <a class="up carousel-control" role="button" data-slide="prev">
+                    <a class="up carousel-control" ng-click="nextSlide()">
                         <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                     </a>
-                    <a class="down carousel-control" role="button" data-slide="next">
+                    <a class="down carousel-control" ng-click="prevSlide()">
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                     </a>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                     <div id="profile"></div>
                     <div id="emotions"></div>
                 </div>
@@ -81,4 +88,4 @@
         <script type="text/javascript" src="app/controllers/resultController.js"></script>
         <script type="text/javascript" src="app/controllers/profileController.js"></script>
     </body>
-</html>
+</html>                 

@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    font-family: HelveticaNeueBold,Helvetica,Helvetica,Arial,sans-serif;
     background-color: #fcfdfd;
 }
 /* ---- navbar ---- */
@@ -81,16 +80,11 @@ h3{
 .profile-container{
     display: block;
     padding: 0;
-}
-.profile-container:hover{
-    background-color: #d0d7df;
-}
-.profile-container:active{
-    background-color: #a2b0bf;
-    color: #fff;
+    margin: 0 23px;
 }
 .profile-container:first-child{
     border-top-left-radius: 10px;
+    margin-top: 20px;
 }
 .profile-container:last-child{
     border-bottom-left-radius: 10px;
@@ -100,10 +94,14 @@ h3{
     border-radius: 100%;
     width: 150px;
     height: 150px;
-    margin-left: 20px;
 }
-.image-profile:first-child{
-    margin-top: 20px;
+.inactive{
+    position: absolute;
+    background-color: rgba(249, 249, 249, 0.7);
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    cursor: pointer;
 }
 .profile-text{
     margin: 15px 5px;
@@ -116,13 +114,17 @@ h3{
     font-weight: 300;
     font-size: 1em;
 }
+tspan {
+    stroke-opacity: 0.5;
+}
 /* ---- carousel ---- */
 .carousel-control{
     color: #535353;
-    left: 50%;
-    width: 0;
+    width: 100%;
     text-shadow: none;
     opacity: initial;
+    margin: 0 auto;
+    cursor: pointer;
 }
 .glyphicon-menu-down:hover, .glyphicon-menu-up:hover{
     color: rgba(92, 92, 92, 0.56);
@@ -137,8 +139,9 @@ h3{
 @media only screen and (max-width: 720px) {
     #boxInfo{padding:0; margin: 0}
     .image-profile{width:90%; height:90%;margin:0;}
+    .image-inactive{margin: 0; height: 96%; width: 90%;}
     .border-right{border-right: none; padding: 30px 0;}
-    .image-profile:first-child{margin-top: 0px;}
+    .profile-container:first-child, .profile-container{margin:0;}
 }
 @media only screen and (min-width: 721px) and (max-width: 1280px) {
 }

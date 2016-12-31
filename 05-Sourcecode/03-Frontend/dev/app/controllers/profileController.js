@@ -4,7 +4,7 @@ app.controller('profile', ['$scope', function($scope) {
 //profile
     $scope.profiles = [
         {
-            "id": 1,
+                     "id": 0,
                      "time": ["1:20", "1:40", "5:50"],
                      "url": "https://lh3.googleusercontent.com/-Ai76BPVK0K4/VzNzaQ83bDI/AAAAAAAACj0/H17NyT8wsMc/s640/Kajol-Dp-profile-pics-586.jpg",
                      "sunglasses": "0",
@@ -19,7 +19,7 @@ app.controller('profile', ['$scope', function($scope) {
                      "mustache": "0",
                      "beard": "0"
                  }, {
-                     "id": 2,
+                     "id": 1,
                      "time": ["2:20", "3:40", "10:50"],
                      "url": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/8/000/299/284/05408a2.jpg",
                      "sunglasses": "99",
@@ -34,7 +34,7 @@ app.controller('profile', ['$scope', function($scope) {
                      "mustache": "98",
                      "beard": "95"
                  }, {
-                     "id": 3,
+                     "id": 2,
                      "time": ["2:20", "3:40", "10:50"],
                      "url": "http://www.design2talk.com/wp-content/uploads/2016/10/cool-girls-dps.jpg",
                      "sunglasses": "94",
@@ -49,7 +49,7 @@ app.controller('profile', ['$scope', function($scope) {
                      "mustache": "0",
                      "beard": "0"
                  }, {
-                     "id": 4,
+                     "id": 3,
                      "time": ["1:20", "1:40", "5:50"],
                      "url": "https://lh3.googleusercontent.com/-oAglOSE-aeI/AAAAAAAAAAI/AAAAAAAAAAA/WH5wh6dMNXo/photo.jpg",
                      "sunglasses": "0",
@@ -64,7 +64,7 @@ app.controller('profile', ['$scope', function($scope) {
                      "mustache": "0",
                      "beard": "0"
                  }, {
-                     "id": 5,
+                     "id": 4,
                      "time": ["2:20", "3:40", "10:50"],
                      "url": "https://2.bp.blogspot.com/-NsFAvNPs4as/VtAlXYIH0tI/AAAAAAAAAx4/VqdHonnrkAE/s1600/Cute%2BCouple%2BLoving%2BHusband%2Band%2BWife%2BProfile%2BPics%2BWhatsApp%2BDp%252C%2BHappy%2BBirthday%2BLove%2BQuotes%2BSms%2BWishes%252C%2BGift%2BIdeas%252C%2BMessages%2BImages%2BPhotos%2BWallpapers%2BLovers%2BRomantic%2B%252823%2529.jpg",
                      "sunglasses": "99",
@@ -79,7 +79,7 @@ app.controller('profile', ['$scope', function($scope) {
                      "mustache": "98",
                      "beard": "95"
                  }, {
-                     "id": 6,
+                     "id": 5,
                      "time": ["2:20", "3:40", "10:50"],
                      "url": "https://static1.squarespace.com/static/51882e59e4b00d33ee9bf77b/t/5568ad0be4b01c525344b697/1432923433734/chin+implant+NYC?format=500w",
                      "sunglasses": "94",
@@ -95,12 +95,35 @@ app.controller('profile', ['$scope', function($scope) {
                      "beard": "0"
                  }
     ];
-//    console.log($scope.profiles[1].sunglasses);
 
-    // Bar
-    angular.forEach($scope.profiles, function(value, key){
-        console.log(value.beard);
-//        console.log(key);
+    // carousel    
+    $scope.currentIndex = 0;
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
+    $scope.prevSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex < $scope.profiles.length - 1) ? ++$scope.currentIndex : 0;
+    };
+    $scope.nextSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.profiles.length - 1;
+    };
+    $scope.getSecondIndex = function(index){
+        if(index - $scope.profiles.length>=0)
+          return index - $scope.profiles.length;
+        else
+          return index;
+    }
+    $scope.class[0] = "inactive"; 
+    $scope.changeClass = function(index){
+        if ($scope.class[index] === "inactive")
+            $scope.class[index] = "active";
+        else
+            $scope.class[index] = "inactive";
+    };
+
+    // button click
+    $scope.btn = function(id){
+        // Bar
         Highcharts.chart('profile', {
             chart: {
                 type: 'bar'
@@ -128,11 +151,16 @@ app.controller('profile', ['$scope', function($scope) {
             },
             plotOptions: {
                 series: {
+    //                    borderRadius: 5,
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.1f}%'
-                    }
+                        format: '{point.y:.1f}%',
+                        style: {
+                            color: '#535353',
+                            fontWeight: '500'
+                        }
+                    },
                 }
             },
 
@@ -143,39 +171,40 @@ app.controller('profile', ['$scope', function($scope) {
 
             series: [{
                 name: 'Personal',
-                colorByPoint: true,
+                colorByPoint: false,
+                color: '#fd665f',
                 data: [{
                     name: 'Wearing sunglasses',
-                    y: parseInt(value.sunglasses),
-                    color: '#FF8201'
+                    y: parseInt($scope.profiles[id].sunglasses)
+    //                    color: '#244566'
                 }, {
                     name: 'Wearing eyeglasses',
-                    y: parseInt(value.eyeglasses),
-                    color: '#F37252'
+                    y: parseInt($scope.profiles[id].eyeglasses)
+    //                    color: '#2e567f'
                 }, {
-                    name: 'Appears to be '+ value.gender.name,
-                    y: parseInt(value.gender.value),
-                    color: '#C72C3A'
+                    name: 'Appears to be '+ $scope.profiles[id].gender.name,
+                    y: parseInt($scope.profiles[id].gender.value)
+    //                    color: '#376799'
                 }, {
                     name: 'Eyes are open',
-                    y: parseInt(value.eyesopen),
-                    color: '#EA3E70'
+                    y: parseInt($scope.profiles[id].eyesopen)
+    //                    color: '#4079b2'
                 }, {
                     name: 'Smilling',
-                    y: parseInt(value.smilling),
-                    color: '#954567'
+                    y: parseInt($scope.profiles[id].smilling)
+    //                    color: '#498acc'
                 }, {
                     name: 'Mouth is open',
-                    y: parseInt(value.mouthopen),
-                    color: '#4BC4D5'
+                    y: parseInt($scope.profiles[id].mouthopen)
+    //                    color: '#529be5'
                 },{
                     name: 'Does not have a mustache',
-                    y: parseInt(value.mustache),
-                    color: '#0180B5'
+                    y: parseInt($scope.profiles[id].mustache)
+    //                    color: '#5cadff'
                 },{
                     name: 'Does not have a beard',
-                    y: parseInt(value.beard),
-                    color: '#02B5A0'
+                    y: parseInt($scope.profiles[id].beard)
+    //                    color: '#6cb5ff'
                 }]
             }]
         });
@@ -185,7 +214,7 @@ app.controller('profile', ['$scope', function($scope) {
         Highcharts.chart('emotions', {
             chart: {
                 type: 'line',
-                height: 150
+                height: 173
             },
             exporting: {
                 enabled: false
@@ -213,17 +242,18 @@ app.controller('profile', ['$scope', function($scope) {
             series: [{
                 name: 'Emotions',
                 data: [
-                        parseInt(value.happy),
-                        parseInt(value.angry),
-                        parseInt(value.sad)
+                        parseInt($scope.profiles[id].happy),
+                        parseInt($scope.profiles[id].angry),
+                        parseInt($scope.profiles[id].sad)
                       ],
                 showInLegend: false,
                 marker: {
-                    fillColor: 'white',
-                    lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[0]
+                    fillColor: '#ffffff',
+                    lineWidth: 1,
+                    lineColor: '#fd665f'
                 }
             }]
         });
-    });
+    }  
+    $scope.btn(0);       
 }]);

@@ -1,55 +1,55 @@
 app.controller('results', ['$scope', function($scope) {
 //column
     var chart = Highcharts.chart('column', {
-
         exporting: {
             enabled: false
         },
-
         title: {
             text: 'Overview'
         },
-
+        subtitle: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in vehicula lacus.'
+        },
         tooltip: {
             shared: false
         },
-
+//        colors:['#244566', '#2e567f', '#376799', '#4079b2', '#498acc', '#529be5', '#5cadff', '#6cb5ff'],
+        color: '#5cadff',
         plotOptions: {
             column: {
                 grouping: false,
                 shadow: false,
                 borderWidth: 0
+//                colorByPoint: true
             },
             series: {
+//                borderRadius: 5,
                 dataLabels: {
                   enabled: true,
                   format: '{point.y:.1f}%',
-                  color: '#535353',
-                  fontWeight: 'normal'
+                  style: {
+                      color: '#535353',
+                      fontWeight: '100',
+                      strokeWidth: '0'
+                  }
                 }
             }
         },
-
         yAxis: {
             max: '100'
         },
-
         xAxis: {
             categories: ['Eyeglasses', 'Sunglasses', 'Eyes Open', 'Smilling', 'Mouth Open', 'Mustache', 'Happy', 'Angry']
         },
-
         series: [{
             name: 'Percentage',
             type: 'column',
-            colorByPoint: true,
             data: [29, 71, 96, 39, 54, 45, 60, 90],
-//            color:['#02B5A0', '#0180B5', '#4BC4D5', '#954567', '#EA3E70', '#C72C3A', '#F37252', '#FF8201'],
             tooltip: {
                 valueSuffix: '%'
             },
             showInLegend: false
         }]
-
     });
 
 
@@ -90,21 +90,6 @@ app.controller('results', ['$scope', function($scope) {
     };
 
 // pie
-    // Make monochrome colors and set them as default for all pies
-    Highcharts.getOptions().plotOptions.pie.colors = (function () {
-        var colors = [],
-            base = Highcharts.getOptions().colors[0],
-            i;
-
-        for (i = 0; i < 10; i += 1) {
-            // Start out with a darkened base color (negative brighten), and end
-            // up with a much brighter color
-            colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
-        }
-        return colors;
-    }());
-
-    // Build the chart
     Highcharts.chart('pie', {
         chart: {
             plotBackgroundColor: null,
@@ -118,6 +103,9 @@ app.controller('results', ['$scope', function($scope) {
         title: {
             text: 'Total Gender'
         },
+        subtitle: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in vehicula lacus.'
+        },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
@@ -125,11 +113,13 @@ app.controller('results', ['$scope', function($scope) {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
+                size:'60%',
                 dataLabels: {
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                     style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        color: '#535353',
+                        fontWeight: '500'
                     }
                 }
             }
@@ -137,8 +127,8 @@ app.controller('results', ['$scope', function($scope) {
         series: [{
             name: 'Gender',
             data: [
-                { name: 'Female', y: 56.33 },
-                { name: 'Male', y: 24.03 },
+                { name: 'Female', y: 100, color: '#fd665f'},
+                { name: 'Male', y: 24, color: '#5cadff'},
             ]
         }]
     });
