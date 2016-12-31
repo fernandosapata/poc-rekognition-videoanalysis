@@ -42,27 +42,29 @@ do
         LIST_OF_IMAGES=( $(find $IMAGE_PATH -maxdepth 1 -type f) )
         FILE_COUNTER=0
         SUBSET_OF_IMAGES=''
-        for FILE_COUNTER in `seq 0 $((${#LIST_OF_IMAGES[@]}-1))`
+        for IDX in `seq 0 $((${#LIST_OF_IMAGES[@]}-1))`
         do
-            echo ${LIST_OF_IMAGES[$FILE_COUNTER]} >> $SUBSET_OF_IMAGES
+		    SUBSET_OF_IMAGES="$SUBSET_OF_IMAGES ${LIST_OF_IMAGES[$IDX]}"
             FILE_COUNTER=$((FILE_COUNTER+1))
-            if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$FILE_COUNTER" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
+            if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$IDX" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
             then
-                INVENTORY_FILENAME="$(date | md5sum | awk '{print $1}').txt"
-                echo  $SUBSET_OF_IMAGES > $INVENTORY_FILENAME
+                INVENTORY_FILENAME="$(date +%s%N | md5sum | awk '{print $1}').txt"
+                echo  $SUBSET_OF_IMAGES > "$IMAGE_PATH/$INVENTORY_FILENAME"
                 SUBSET_OF_IMAGES=''
                 FILE_COUNTER=0
             fi
         done
 
-		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/
+        # Make sure we have uploaded all images before the inventory files due to lambda invocation
+		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/ --exclude "*.txt"
+		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/ --exclude "*.png"
 
         # Update processing status after processing
 		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload "{\"topic\": \"$IOT_TOPIC\", \"type\": \"status\", \"payload\": {\"message\": \"Analyzing frames\", \"percentage\": 60}}" /dev/null
 
 		# Clean up the mess
 		aws sqs delete-message --queue-url $QUEUE_URL --receipt-handle $RECEIPT_HANDLE --region $EC2_REGION
-#		rm -Rf videos/* images/*
+		rm -Rf videos/* images/*
 	else
 		echo "[$(date +%Y-%m-%d:%H:%M:%S)] - No messages so far"
   	fi
