@@ -46,15 +46,15 @@
                 <div class="border-right col-lg-2 col-md-2 col-sm-12 col-xs-12">
                     <div ng-repeat="profile in profiles"> 
                         <div class="profile-container col-lg-12 col-md-12 col-sm-3 col-xs-3" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-class="{'inactive' : activeBtn === profile.id}" ng-click="btn(profile.id) ; setActive(profile.id)"></div>
+                            <div ng-class="{'active' : activeBtn === btn(rofile.id)}" id={{profile.id}} class="button" ng-click="btn(profile.id) ; setActive(profile.id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profile.url}}" alt="Profile image example"/>
                         </div>
                         <div class="profile-container col-lg-12 col-md-12 col-sm-3 col-xs-3" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-class="{'inactive' : activeBtn === profile.id}" ng-click="btn(profiles[getSecondIndex($index+1)].id) ; setActive(profiles[getSecondIndex($index+1)].id)"></div>
+                            <div ng-class="{'active' : activeBtn === btn(rofile.id)}" id={{profile.id}} class="button" ng-click="btn(profiles[getSecondIndex($index+1)].id) ; setActive(profiles[getSecondIndex($index+1)].id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+1)].url}}" alt="Profile image example"/>
                         </div>
                         <div class="profile-container col-lg-12 col-md-12 col-sm-3 col-xs-3" ng-if="isCurrentSlideIndex($index)">
-                            <div ng-class="{'inactive' : activeBtn === profile.id}" ng-click="btn(profiles[getSecondIndex($index+2)].id) ; setActive(profiles[getSecondIndex($index+2)].id)"></div>
+                            <div ng-class="{'active' : activeBtn === btn(rofile.id)}" id={{profile.id}} class="button" ng-click="btn(profiles[getSecondIndex($index+2)].id) ; setActive(profiles[getSecondIndex($index+2)].id)"></div>
                             <img align="left" class="image-profile thumbnail" src="{{profiles[getSecondIndex($index+2)].url}}" alt="Profile image example"/>
                         </div>
                     </div>

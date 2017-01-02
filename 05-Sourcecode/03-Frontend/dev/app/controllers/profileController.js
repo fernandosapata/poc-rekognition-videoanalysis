@@ -114,9 +114,9 @@ app.controller('profile', ['$scope', function($scope) {
           return index;
     };
 
-    $scope.activeBtn = $scope.profiles[0].id;
+    $scope.activeBtn = undefined;
     $scope.setActive = function(id) {
-        $scope.activeBtn = id
+        $scope.activeBtn = id;
     };
     // button click
     $scope.btn = function(id){
