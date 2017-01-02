@@ -40,36 +40,36 @@ do
 		# Update processing status after processing
 		aws lambda invoke --invocation-type Event --function-name RVA_IoT_publish_message_function --region $EC2_REGION --payload "{\"topic\": \"$IOT_TOPIC\", \"type\": \"status\", \"payload\": {\"message\": \"Uploading frames\", \"percentage\": 50}}" /dev/null
 
-        LIST_OF_IMAGES=( $(find $IMAGE_PATH -maxdepth 1 -type f) )
-        FILE_COUNTER=0
-        SUBSET_OF_IMAGES=''
-        for IDX in `seq 0 $((${#LIST_OF_IMAGES[@]}-1))`
-        do
-		    SUBSET_OF_IMAGES="$SUBSET_OF_IMAGES ${LIST_OF_IMAGES[$IDX]}"
-            FILE_COUNTER=$((FILE_COUNTER+1))
-            if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$IDX" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
-            then
-                INVENTORY_FILENAME="$(date +%s%N | md5sum | awk '{print $1}').txt"
-                echo $SUBSET_OF_IMAGES > "$IMAGE_PATH/$INVENTORY_FILENAME"
-                SUBSET_OF_IMAGES=''
-                FILE_COUNTER=0
-            fi
-        done
+		LIST_OF_IMAGES=( $(find $IMAGE_PATH -maxdepth 1 -type f) )
+		FILE_COUNTER=0
+		SUBSET_OF_IMAGES=''
+		for IDX in `seq 0 $((${#LIST_OF_IMAGES[@]}-1))`
+		do
+			SUBSET_OF_IMAGES="$SUBSET_OF_IMAGES ${LIST_OF_IMAGES[$IDX]}"
+			FILE_COUNTER=$((FILE_COUNTER+1))
+			if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$IDX" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
+			then
+			    INVENTORY_FILENAME="$(date +%s%N | md5sum | awk '{print $1}').txt"
+			    echo $SUBSET_OF_IMAGES > "$IMAGE_PATH/$INVENTORY_FILENAME"
+			    SUBSET_OF_IMAGES=''
+			    FILE_COUNTER=0
+			fi
+		done
 
-        # Generating process item which will be put into DynamoDB in order to keep track of the process
-        DYNAMODB_PAYLOAD=$(mktemp --suffix "dynamodb.json")
-        echo '{"Identifier" : {"S": "$FILE_IDENTIFIER"}, "Status" : {"S": "PROCESSING"}, "Parts" : {"M":{' >> $DYNAMODB_PAYLOAD
-        LIST_OF_BATCHES=( $(find $IMAGE_PATH -maxdepth 1 -type f -name *.txt) )
-        for IDX in `seq 0 $((${#LIST_OF_BATCHES[@]}-1))`
-        do
-            echo "\"${LIST_OF_BATCHES[$IDX]}\" : {\"S\": \"PROCESSING\"}" >> $DYNAMODB_PAYLOAD
-            if [[ "$IDX" -ne $((${#LIST_OF_BATCHES[@]}-1)) ]]
-            then
-                echo "," >> $DYNAMODB_PAYLOAD
-            fi
-        done
-        echo '}}}' >> $DYNAMODB_PAYLOAD
-        aws dynamodb put-item --table-name RVA_PROCESS_TABLE --item file://$DYNAMODB_PAYLOAD --return-consumed-capacity TOTAL
+		# Generating process item which will be put into DynamoDB in order to keep track of the process
+		DYNAMODB_PAYLOAD=$(mktemp --suffix "dynamodb.json")
+		echo '{"Identifier" : {"S": "$FILE_IDENTIFIER"}, "Status" : {"S": "PROCESSING"}, "Parts" : {"M":{' >> $DYNAMODB_PAYLOAD
+		LIST_OF_BATCHES=( $(find $IMAGE_PATH -maxdepth 1 -type f -name *.txt) )
+		for IDX in `seq 0 $((${#LIST_OF_BATCHES[@]}-1))`
+		do
+		    echo "\"${LIST_OF_BATCHES[$IDX]}\" : {\"S\": \"PROCESSING\"}" >> $DYNAMODB_PAYLOAD
+			if [[ "$IDX" -ne $((${#LIST_OF_BATCHES[@]}-1)) ]]
+			then
+		    	echo "," >> $DYNAMODB_PAYLOAD
+			fi
+		done
+		echo '}}}' >> $DYNAMODB_PAYLOAD
+		aws dynamodb put-item --table-name RVA_PROCESS_TABLE --item file://$DYNAMODB_PAYLOAD --return-consumed-capacity TOTAL
 
         # Make sure we have uploaded all images before the inventory files due to lambda invocation
 		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/ --exclude "*.txt"
