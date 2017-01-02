@@ -58,7 +58,7 @@ do
 
 		# Generating process item which will be put into DynamoDB in order to keep track of the process
 		DYNAMODB_PAYLOAD=$(mktemp --suffix "dynamodb.json")
-		echo "{\"Identifier\" : {\"S\": \"$FILE_IDENTIFIER\"}, \"Status\" : {\"S\": \"PROCESSING\"}, \"Parts\" : {\"M\":{" >> $DYNAMODB_PAYLOAD
+		echo "{\"Identifier\" : {\"S\": \"$FILE_IDENTIFIER\"}, \"Status\" : {\"S\": \"PROCESSING\"}, \"Topic\" : {\"S\": \"$IOT_TOPIC\"}, \"Parts\" : {\"M\":{" >> $DYNAMODB_PAYLOAD
 		LIST_OF_BATCHES=( $(find $IMAGE_PATH -maxdepth 1 -type f -name *.txt) )
 		for IDX in `seq 0 $((${#LIST_OF_BATCHES[@]}-1))`
 		do
