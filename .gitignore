@@ -1,3 +1,4 @@
+/05-Sourcecode/01-Server/04-RVA_IoT_publish_message_function/env
 *.py[cod]
 
 # C extensions
@@ -17,6 +18,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+env
 __pycache__
 
 # Installer logs
