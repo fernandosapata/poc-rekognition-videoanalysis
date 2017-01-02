@@ -30,7 +30,7 @@ chmod 755 /opt/poc-rekognition-videoanalysis/preprocess-service.sh
 
 # Install and configure supervisord
 easy_install supervisor
-mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/supervisor/supervisor/supervisord.conf /etc/supervisord.conf
+mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/supervisord.conf /etc/supervisord.conf
 mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/init.d/supervisor /etc/init.d/
 chmod 755 /etc/init.d/supervisor
 chkconfig --add supervisor
