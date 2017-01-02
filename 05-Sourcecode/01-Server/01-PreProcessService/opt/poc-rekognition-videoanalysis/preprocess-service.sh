@@ -58,7 +58,7 @@ do
 
 		# Generating process item which will be put into DynamoDB in order to keep track of the process
 		DYNAMODB_PAYLOAD=$(mktemp --suffix "dynamodb.json")
-		echo '{"Identifier" : {"S": "$FILE_IDENTIFIER"}, "Status" : {"S": "PROCESSING"}, "Parts" : {"M":{' >> $DYNAMODB_PAYLOAD
+		echo "{\"Identifier\" : {\"S\": \"$FILE_IDENTIFIER\"}, \"Status\" : {\"S\": \"PROCESSING\"}, \"Parts\" : {\"M\":{\" >> $DYNAMODB_PAYLOAD
 		LIST_OF_BATCHES=( $(find $IMAGE_PATH -maxdepth 1 -type f -name *.txt) )
 		for IDX in `seq 0 $((${#LIST_OF_BATCHES[@]}-1))`
 		do
@@ -69,7 +69,7 @@ do
 			fi
 		done
 		echo '}}}' >> $DYNAMODB_PAYLOAD
-		aws dynamodb put-item --table-name RVA_PROCESS_TABLE --item file://$DYNAMODB_PAYLOAD --return-consumed-capacity TOTAL
+		aws dynamodb put-item --table-name RVA_PROCESS_TABLE --item file://$DYNAMODB_PAYLOAD --return-consumed-capacity TOTAL --region $EC2_REGION
 
         # Make sure we have uploaded all images before the inventory files due to lambda invocation
 		aws s3 sync $IMAGE_PATH/ s3://$BUCKET_NAME/$IMAGE_PATH/ --exclude "*.txt"
