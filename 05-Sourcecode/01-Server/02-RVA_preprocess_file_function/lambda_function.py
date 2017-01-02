@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     try:
         s3_object = s3.Object(bucket, key)
         s3.meta.client.copy_object(
-            Bucket=bucket, Key=('videos/%s/video.%s' % (etag, extension)),
+            Bucket=bucket, Key=('videos/%s/video%s' % (etag, extension)),
             CopySource={'Bucket': bucket, 'Key': key}, MetadataDirective = 'COPY')
         lambda_client.invoke(
             FunctionName='RVA_IoT_publish_message_function',
