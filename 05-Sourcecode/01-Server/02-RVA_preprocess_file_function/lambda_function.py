@@ -14,10 +14,11 @@ def lambda_handler(event, context):
     key = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
     etag = urllib.unquote_plus(event['Records'][0]['s3']['object']['eTag'].encode('utf8'))
     path, filename = os.path.split(os.path.abspath(key))
+    extension = os.path.splitext(filename)[1]
     try:
         s3_object = s3.Object(bucket, key)
         s3.meta.client.copy_object(
-            Bucket=bucket, Key=('videos/%s/%s' % (etag, filename)),
+            Bucket=bucket, Key=('videos/%s/video.%s' % (etag, extension)),
             CopySource={'Bucket': bucket, 'Key': key}, MetadataDirective = 'COPY')
         lambda_client.invoke(
             FunctionName='RVA_IoT_publish_message_function',
