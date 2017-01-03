@@ -14,8 +14,17 @@ body {
     padding: 0;
     box-shadow: 0 0 2px #e3e3e3;
 }
+.navbar-brand{
+    padding: 15px 5px;
+}
 .navbar-brand>img{
     width: 22px;
+}
+.navbar-header{
+    width: 100%;
+}
+.navbar-header h1{
+    font-size: 0.9em;
 }
 /* ---- upload ---- */
 .btn-default {

@@ -114,7 +114,7 @@ app.controller('profile', ['$scope', function($scope) {
           return index;
     };
 
-    $scope.activeBtn = undefined;
+    $scope.activeBtn = 0;
     $scope.setActive = function(id) {
         $scope.activeBtn = id;
     };
