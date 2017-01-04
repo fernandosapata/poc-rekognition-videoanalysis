@@ -18,15 +18,32 @@ git clone --depth=1 https://github.com/PauloMigAlmeida/poc-rekognition-videoanal
 tar -xJf poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/dependencies/ffmpeg-git-64bit-static.tar.xz -C /opt/
 ln -fs /opt/ffmpeg-git-20161225-64bit-static/ffmpeg /usr/bin/
 
-# configure preprocess-service
+# Install preprocess-service
 mkdir -p /opt/poc-rekognition-videoanalysis/tmp/videos /opt/poc-rekognition-videoanalysis/tmp/images
 mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/opt/poc-rekognition-videoanalysis/preprocess-service.sh /opt/poc-rekognition-videoanalysis/
-#mv poc-rekognition-videoanalysis/05-Sourcecode/01-Server/01-PreProcessService/etc/init.d/preprocess-service /etc/init.d/
-
 chmod 755 /opt/poc-rekognition-videoanalysis/preprocess-service.sh
-#chmod 755 /etc/init.d/preprocess-service
 
-#chkconfig preprocess-service on
+# Install opencv
+yum install -y python27-numpy git cmake gcc-c++
+cd /tmp
+git clone https://github.com/Itseez/opencv.git --depth=1
+cd opencv/
+cmake .
+make
+sudo make install
+cd ..
+rm -Rf /tmp/opencv
+ln -s /usr/local/lib/python2.7/dist-packages/cv2.so /usr/lib/python2.7/dist-packages/
+
+# Install facedetect
+cd /tmp
+git clone https://github.com/PauloMigAlmeida/facedetect.git --depth=1
+cd facedetect
+cp facedetect /usr/bin
+cd ..
+rm -Rf /tmp/facedetect
+chmod 755 /usr/bin/facedetect
+
 
 # Install and configure supervisord
 easy_install supervisor

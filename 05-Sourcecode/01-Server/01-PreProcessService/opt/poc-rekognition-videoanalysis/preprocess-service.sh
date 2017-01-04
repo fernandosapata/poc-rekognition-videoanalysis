@@ -4,7 +4,7 @@ cd /opt/poc-rekognition-videoanalysis/tmp
 rm -Rf videos/* images/*
 
 # Parameter section
-FFMPEG_FRAMES_PER_SECOND=3
+FFMPEG_FRAMES_PER_SECOND=1/3
 SQS_MAX_NUMBER_OF_MESSAGES=1
 SQS_WAIT_TIME_SECONDS=2
 
@@ -44,15 +44,21 @@ do
 		FILE_COUNTER=0
 		SUBSET_OF_IMAGES=''
 		for IDX in `seq 0 $((${#LIST_OF_IMAGES[@]}-1))`
-		do
-			SUBSET_OF_IMAGES="$SUBSET_OF_IMAGES ${LIST_OF_IMAGES[$IDX]}"
-			FILE_COUNTER=$((FILE_COUNTER+1))
-			if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$IDX" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
-			then
-			    INVENTORY_FILENAME="$(date +%s%N | md5sum | awk '{print $1}').txt"
-			    echo $SUBSET_OF_IMAGES > "$IMAGE_PATH/$INVENTORY_FILENAME"
-			    SUBSET_OF_IMAGES=''
-			    FILE_COUNTER=0
+		do						
+			# Check whether or not this frame contains a face to avoid calling rekognition in vain
+			if facedetect --data-dir "/usr/local/share/OpenCV/" -q "${LIST_OF_IMAGES[$IDX]}"; then
+			    SUBSET_OF_IMAGES="$SUBSET_OF_IMAGES ${LIST_OF_IMAGES[$IDX]}"
+			    FILE_COUNTER=$((FILE_COUNTER+1))
+			    
+			    if [[ "$FILE_COUNTER" -eq 10 ]] || [[ "$IDX" -eq $((${#LIST_OF_IMAGES[@]}-1)) ]]
+			    then
+			        INVENTORY_FILENAME="$(date +%s%N | md5sum | awk '{print $1}').txt"
+			        echo $SUBSET_OF_IMAGES > "$IMAGE_PATH/$INVENTORY_FILENAME"
+			        SUBSET_OF_IMAGES=''
+			        FILE_COUNTER=0
+			    fi
+			else
+			    rm -f ${LIST_OF_IMAGES[$IDX]}
 			fi
 		done
 
@@ -65,7 +71,7 @@ do
 		    echo "\"${LIST_OF_BATCHES[$IDX]}\" : {\"S\": \"PROCESSING\"}" >> $DYNAMODB_PAYLOAD
 			if [[ "$IDX" -ne $((${#LIST_OF_BATCHES[@]}-1)) ]]
 			then
-		    	echo "," >> $DYNAMODB_PAYLOAD
+		    	    echo "," >> $DYNAMODB_PAYLOAD
 			fi
 		done
 		echo '}}}' >> $DYNAMODB_PAYLOAD
