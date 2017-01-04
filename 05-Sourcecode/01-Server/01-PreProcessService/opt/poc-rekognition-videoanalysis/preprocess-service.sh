@@ -4,7 +4,7 @@ cd /opt/poc-rekognition-videoanalysis/tmp
 rm -Rf videos/* images/*
 
 # Parameter section
-FFMPEG_FRAMES_PER_SECOND=3
+FFMPEG_FRAMES_PER_SECOND=1/3
 SQS_MAX_NUMBER_OF_MESSAGES=1
 SQS_WAIT_TIME_SECONDS=2
 
