@@ -46,10 +46,14 @@
                 </button>
             </div>
         </div>
-        <div class="progress" ng-show="loadingStart">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{loading}}"
-                 aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
-                <b>{{loading}}%</b> {{message}}
+        <div class="ng-cloak" ng-show="loadingStart">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{loading}}"
+                     aria-valuemin="0" aria-valuemax="100" style="width:{{loading}}%">
+                    <div class="message">
+                        <b>{{loading}}%</b> {{message}}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container wrap-tutorial">
@@ -68,7 +72,6 @@
         </div>
     </main>
     <footer>
-       Copyright © 2016, All rights reserved.
     </footer>
     <script type="text/javascript" src="app/js/aws-iot-sdk-browser-bundle.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>

@@ -51,7 +51,7 @@ body {
 }
 /* ---- tutorial ---- */
 .wrap-tutorial {
-    padding: 140px 0;
+    padding: 5% 0;
 }
 .img-center{
     margin: 15px auto 0 auto;
@@ -68,6 +68,14 @@ body {
     background-color: #000000;
     font-size: 1em;
     line-height: 28px;
+}
+.ng-cloak{
+    display: none;
+}
+.message{
+    position: absolute;
+    left: 50%;
+    text-shadow: -1px 1px rgba(0, 0, 0, 0.98);
 }
 /* ---- page 2 graphics ---- */
 .highcharts-credits{
