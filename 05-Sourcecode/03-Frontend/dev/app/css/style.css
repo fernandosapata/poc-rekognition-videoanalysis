@@ -72,11 +72,7 @@ body {
 .ng-cloak{
     display: none;
 }
-.message{
-    position: absolute;
-    left: 50%;
-    text-shadow: -1px 1px rgba(0, 0, 0, 0.98);
-}
+
 /* ---- page 2 graphics ---- */
 .highcharts-credits{
     display: none;
